@@ -1,1 +1,37 @@
-<p>user works!</p>
+<form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+  <label>
+    Nombre:
+    <input type="text" formControlName="nombre" />
+  </label>
+
+  <label>
+    Email:
+    <input type="email" formControlName="email" />
+  </label>
+
+  <div formGroupName="direccion">
+    <label>
+      Calle:
+      <input type="text" formControlName="calle" />
+    </label>
+
+    <label>
+      Ciudad:
+      <input type="text" formControlName="ciudad" />
+    </label>
+  </div>
+
+  <div formArrayName="pasatiempos">
+    <p>Pasatiempos:</p>
+    @for (pasatiempo of pasatiempos.controls; track $index; let i = $index) {
+      <label>
+        Pasatiempo {{ i + 1 }}:
+        <input type="text" [formControlName]="i" />
+      </label>
+    }
+    <button type="button" (click)="agregarPasatiempo()">Agregar pasatiempo</button>
+  </div>
+
+  <button type="submit">Enviar</button>
+  <button type="button" (click)="cargarDireccionPrueba()">Cargar Dirección de Prueba</button>
+</form>
